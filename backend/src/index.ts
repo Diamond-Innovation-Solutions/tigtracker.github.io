@@ -27,9 +27,10 @@ import Contract from './contract'
     
 
     contract.events.allEvents((error, event)=>{
-      if(error)
+      if(error){
         console.log(`error: ${error}`)
         return
+      }
       console.log(`event: ${event}`)
     })
 

@@ -12,6 +12,7 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
+    "big-number": "^2.0.0",
     "web3": "^1.8.0",
     "web3-eth-contract": "^1.8.0",
     "web3-utils": "^1.8.0"

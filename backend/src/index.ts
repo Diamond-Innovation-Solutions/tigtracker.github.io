@@ -26,7 +26,7 @@ import Contract from './contract'
 
     
 
-    contract.events.AssetAdded((error, event)=>{
+    contract.events.allEvents((error, event)=>{
       if(error)
         console.log(`error: ${error}`)
         return

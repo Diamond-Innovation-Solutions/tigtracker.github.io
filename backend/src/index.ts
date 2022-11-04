@@ -19,24 +19,33 @@ import Pairs from './pairs.json'
       '0x0e6E91221C46904563fAfDCc814fbF342BE8Ba20'
     )
 
-    console.log(`${''.padStart(39,'#')}\n#   ASSET   # FUNDING(L) # FUNDING(S) #\n${''.padStart(39,'#')}`)
+    console.log(`${''.padStart(39, '#')}\n#   ASSET   # FUNDING(L) # FUNDING(S) #\n${''.padStart(39, '#')}`)
 
     for (const pair in Pairs) {
 
       //@ts-ignore
       const val = Pairs[pair]
 
-      const { baseFundingRate } = await contract.methods.idToAsset(val).call()
-
-      const { longOi, shortOi } = await contract.methods
+      let { baseFundingRate, minLeverage, maxLeverage, feeMultiplier } = await contract.methods.idToAsset(val).call()
+      let { longOi, shortOi, maxOi } = await contract.methods
         .idToOi(val, '0x7e491f53bf807f836e2dd6c4a4fbd193e1913efd')
         .call()
 
-      const fundingL = longOi  / 1e18 * baseFundingRate / 1e10
-      const fundingS = shortOi / 1e18 * baseFundingRate / 1e10
 
-      console.log(
-        `# ${pair.padEnd(9)} # ${(fundingL.toString()+'%').padEnd(10) } # ${(fundingS.toString()+'%').padEnd(11)}#`
-      )
+      baseFundingRate = baseFundingRate/1e10
+      minLeverage = minLeverage/1e18
+      maxLeverage = maxLeverage/1e18
+      feeMultiplier = feeMultiplier/1e10
+      longOi = longOi/1e18
+      shortOi = shortOi/1e18
+
+      console.log(`${baseFundingRate} : ${minLeverage} : ${maxLeverage} : ${feeMultiplier} : ${longOi} : ${shortOi}`)
+
+
+      continue
+
+      //console.log(
+      //  `# ${pair.padEnd(9)} # ${(fundingL.toString() + '%').padEnd(10)} # ${(fundingS.toString() + '%').padEnd(11)}#`
+      //)
     }
   })()

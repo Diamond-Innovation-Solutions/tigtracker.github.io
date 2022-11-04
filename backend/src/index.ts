@@ -39,13 +39,13 @@ import Pairs from './pairs.json'
       longOi = longOi/1e18
       shortOi = shortOi/1e18
 
-      console.log(`${baseFundingRate} : ${minLeverage} : ${maxLeverage} : ${feeMultiplier} : ${longOi} : ${shortOi}`)
+      console.log(`base funding rate = ${baseFundingRate} : minimum leverage = ${minLeverage} : max leverage = ${maxLeverage} : fee multiplier = ${feeMultiplier} : long open interest = ${longOi} : short open interest = ${shortOi}`)
+
+      let oiFunding = (shortOi - longOi) * baseFundingRate / shortOi
+      if(oiFunding < 0)
+        oiFunding = oiFunding * (100 - baseFundingRate)
+      console.log(`${pair} - ${oiFunding}`)
 
 
-      continue
-
-      //console.log(
-      //  `# ${pair.padEnd(9)} # ${(fundingL.toString() + '%').padEnd(10)} # ${(fundingS.toString() + '%').padEnd(11)}#`
-      //)
     }
   })()
